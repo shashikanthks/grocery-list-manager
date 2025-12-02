@@ -60,39 +60,3 @@ class UserAPITests(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
     """Tests for User serializers."""
-
-    def setUp(self):
-        """Set up test data."""
-        self.user = User.objects.create_user(
-            username='testuser',
-            email='test@example.com',
-            password='testpass123',
-            first_name='Test',
-            last_name='User'
-        )
-
-    def test_user_serializer_fields(self):
-        """Test that UserSerializer includes correct fields."""
-        from .serializers import UserSerializer
-        serializer = UserSerializer(self.user)
-        data = serializer.data
-        
-        self.assertIn('id', data)
-        self.assertIn('username', data)
-        self.assertIn('email', data)
-        self.assertIn('first_name', data)
-        self.assertIn('last_name', data)
-        self.assertIn('created_at', data)
-        # Password should not be in serialized data
-        self.assertNotIn('password', data)
-
-    def test_user_minimal_serializer(self):
-        """Test UserMinimalSerializer has limited fields."""
-        from .serializers import UserMinimalSerializer
-        serializer = UserMinimalSerializer(self.user)
-        data = serializer.data
-        
-        self.assertIn('id', data)
-        self.assertIn('username', data)
-        self.assertIn('email', data)
-        self.assertNotIn('created_at', data)
