@@ -29,10 +29,8 @@ class UserModelTests(TestCase):
         self.assertTrue(admin.is_superuser)
 
 class UserAPITests(APITestCase):
-    """Tests for User API endpoints."""
 
     def setUp(self):
-        """Set up test data."""
         self.user = User.objects.create_user(
             username='testuser',
             email='test@example.com',
@@ -51,7 +49,7 @@ class UserAPITests(APITestCase):
         """Test that user list requires authentication."""
         url = reverse('user-list')
         response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_user_list_authenticated(self):
         """Test getting user list when authenticated."""
@@ -59,4 +57,3 @@ class UserAPITests(APITestCase):
         url = reverse('user-list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-    """Tests for User serializers."""

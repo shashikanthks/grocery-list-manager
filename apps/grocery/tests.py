@@ -155,7 +155,7 @@ class GroceryListAPITests(APITestCase):
         """Test that grocery list endpoints require authentication."""
         url = reverse('grocerylist-list')
         response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
 class GroceryItemAPITests(APITestCase):
